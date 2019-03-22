@@ -15,12 +15,11 @@
         android:id="@+id/gitusername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/moseskamira"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_toEndOf="@+id/image"
         android:layout_toRightOf="@+id/image"
-        android:layout_centerVertical="true"
+        android:text="@string/moseskamira"
         android:textSize="18sp" />
 
 </RelativeLayout>
