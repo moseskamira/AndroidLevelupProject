@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Android CodeLab App</string>
+    <string name="profileimage">profileimage</string>
+    <string name="share">SHARE</string>
+    <string name="https_github_com_moseskamira">https://github.com/moseskamira/</string>
+    <string name="git_profile_url">Git Profile Url:</string>
     <string name="moseskamira">moseskamira</string>
+    <string name="username">Username:</string>
 </resources>
