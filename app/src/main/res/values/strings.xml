@@ -6,4 +6,6 @@
     <string name="git_profile_url">Git Profile Url:</string>
     <string name="moseskamira">moseskamira</string>
     <string name="username">Username:</string>
+    <string name="organization">Organization:</string>
+    <string name="andela">Andela</string>
 </resources>
