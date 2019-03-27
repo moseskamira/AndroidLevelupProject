@@ -7,53 +7,52 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.androidcodelabapp.R;
 import com.example.androidcodelabapp.adapter.GithubUsersAdapter;
-import com.example.androidcodelabapp.service.GithubAPI;
-import com.example.androidcodelabapp.service.GithubService;
+import com.example.androidcodelabapp.model.GithubUsers;
+import com.example.androidcodelabapp.model.GithubUsersResponse;
+import com.example.androidcodelabapp.presenter.GithubPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AllDevelopersView {
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<String> userNames = new ArrayList<>();
-    private ArrayList<String> profileImage = new ArrayList<>();
-    private ArrayList<String> getGithubUrl = new ArrayList<>();
-    private ArrayList<String> getOrganization = new ArrayList<>();
-
-
+    private GithubPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initBindDeveloper();
-
+        initRecyclerView();
+        presenter.getDevelopers(this);
     }
 
-    private void initBindDeveloper() {
-        profileImage.add("https://homepages.cae.wisc.edu/~ece533/images/airplane.png");
-        userNames.add("moseskamira");
-        profileImage.add("https://homepages.cae.wisc.edu/~ece533/images/boat.png");
-        userNames.add("evamaina");
-        profileImage.add("https://homepages.cae.wisc.edu/~ece533/images/baboon.png");
-        userNames.add("emmanuelomona");
-        profileImage.add("https://homepages.cae.wisc.edu/~ece533/images/girl.png");
-        userNames.add("janetwalters");
-        profileImage.add("https://homepages.cae.wisc.edu/~ece533/images/watch.png");
-        userNames.add("kellykeith");
-        profileImage.add("https://homepages.cae.wisc.edu/~ece533/images/barbara.png");
-        userNames.add("johnsonagile");
-
-        initGithubUsersAdapter();
-
-    }
-
-    private void initGithubUsersAdapter() {
+    private void initRecyclerView() {
         recyclerView = findViewById(R.id.recyclerview);
-        GithubUsersAdapter adapter = new GithubUsersAdapter(this, userNames, profileImage, getGithubUrl, getOrganization);
-        recyclerView.setAdapter(adapter);
+        presenter = new GithubPresenter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+    }
+
+    @Override
+    public void showDevelopers(GithubUsersResponse response) {
+        List<GithubUsers> allDevelopers = response.getGithubUsers();
+        ArrayList<String> userNames = new ArrayList<>();
+        ArrayList<String> profileImages = new ArrayList<>();
+        ArrayList<String> githubUrls = new ArrayList<>();
+        ArrayList<String> organisations = new ArrayList<>();
+        for (GithubUsers user : allDevelopers) {
+            userNames.add(user.getUserName());
+            profileImages.add(user.getProfileImage());
+            githubUrls.add(user.getProfile());
+            organisations.add(user.getOrganization());
+        }
+        recyclerView.setAdapter(new GithubUsersAdapter(this, userNames,
+                profileImages, githubUrls, organisations));
+    }
+
+
+    @Override
+    public void showError() {
 
     }
 
