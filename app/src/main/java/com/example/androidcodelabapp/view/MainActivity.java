@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.androidcodelabapp.R;
 import com.example.androidcodelabapp.adapter.GithubUsersAdapter;
+import com.example.androidcodelabapp.service.GithubAPI;
+import com.example.androidcodelabapp.service.GithubService;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> profileImage = new ArrayList<>();
     private ArrayList<String> getGithubUrl = new ArrayList<>();
     private ArrayList<String> getOrganization = new ArrayList<>();
+
 
 
     @Override
