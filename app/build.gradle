@@ -42,6 +42,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Retrofit and converter
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     // recyclerview
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     // glide
@@ -49,4 +52,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     // circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    // GSON Library
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 }

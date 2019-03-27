@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp;
+package com.example.androidcodelabapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,21 +11,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.androidcodelabapp.view.DetailActivity;
+import com.example.androidcodelabapp.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
-    private ArrayList<String> mgitUserName;
-    private ArrayList<String> mprofileImage;
+    private ArrayList<String> userName;
+    private ArrayList<String> profileImage;
+    private ArrayList<String> githubUrl;
+    private ArrayList<String> organization;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> gitUserName, ArrayList<String> profileImage) {
-        this.mgitUserName = gitUserName;
-        this.mprofileImage = profileImage;
+    public GithubUsersAdapter(Context context, ArrayList<String> userName, ArrayList<String> profileImage, ArrayList<String> githubUrl, ArrayList<String> organization) {
+        this.userName = userName;
+        this.profileImage = profileImage;
+        this.githubUrl = githubUrl;
+        this.organization = organization;
         this.mContext = context;
     }
 
@@ -40,26 +45,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final int location = position;
-        Glide.with(mContext).asBitmap().load(mprofileImage.get(position)).into(holder.profileImage);
-        holder.gitUserName.setText(mgitUserName.get(position));
+        Glide.with(mContext).asBitmap().load(profileImage.get(position)).into(holder.profileImage);
+        holder.gitUserName.setText(userName.get(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra("gitUserName", mgitUserName.get(location));
-                intent.putExtra("profileImage", mprofileImage.get(location));
+                intent.putExtra("gitUserName", userName.get(location));
+                intent.putExtra("profileImage", profileImage.get(location));
                 mContext.startActivity(intent);
             }
         });
     }
-//    public void setOnclickListener(){
-//
-//
-//    }
-
     @Override
     public int getItemCount() {
-        return mprofileImage.size();
+        return profileImage.size();
     }
 
 
