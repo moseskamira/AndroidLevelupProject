@@ -8,10 +8,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface GithubAPI {
-    @GET("earch/users?q=type:User+location:Nairobi+language:JAVA")
+    @GET("search/users?q=type:User+location:Nairobi+language:JAVA")
     Call<GithubUsersResponse> getAllDevelopers();
 
-    @GET("users/{githubHandle}")
-    Call<GithubUsers> getDeveloperProfile(@Path("githubHandle") String githubHandle);
+    @GET("users/{githubUserName}")
+    Call<GithubUsers> getDeveloperProfile(@Path("githubUserName") String githubUserName);
 
 }

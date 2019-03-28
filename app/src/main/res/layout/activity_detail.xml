@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:id="@+id/detail_activity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"

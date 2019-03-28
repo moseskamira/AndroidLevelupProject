@@ -1,4 +1,5 @@
 package com.example.androidcodelabapp.model;
+
 import com.google.gson.annotations.SerializedName;
 
 public class GithubUsers {
@@ -9,12 +10,10 @@ public class GithubUsers {
     @SerializedName("login")
     String userName;
 
-    @SerializedName("epos_url")
-    String githubUrl;
     @SerializedName("html_url")
     String profile;
 
-    @SerializedName("rganizations_url")
+    @SerializedName("company")
     String organization;
 
 
@@ -24,10 +23,6 @@ public class GithubUsers {
 
     public String getUserName() {
         return userName;
-    }
-
-    public String getGithubUrl() {
-        return githubUrl;
     }
 
     public String getOrganization() {
