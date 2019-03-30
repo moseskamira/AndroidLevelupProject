@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.content.Intent;
 
 import com.example.androidcodelabapp.R;
 import com.example.androidcodelabapp.adapter.GithubUsersAdapter;
@@ -11,7 +12,6 @@ import com.example.androidcodelabapp.model.GithubUsers;
 import com.example.androidcodelabapp.model.GithubUsersResponse;
 import com.example.androidcodelabapp.presenter.GithubPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AllDevelopersView {
@@ -32,28 +32,18 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
     }
+    public void showDeveloperDetails(GithubUsers profileInfo){
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("gitUserName", profileInfo.getUserName());
+        intent.putExtra("profileImage",profileInfo.getProfileImage());
+        startActivity(intent);
+
+    }
 
     @Override
     public void showDevelopers(GithubUsersResponse response) {
         List<GithubUsers> allDevelopers = response.getGithubUsers();
-        ArrayList<String> userNames = new ArrayList<>();
-        ArrayList<String> profileImages = new ArrayList<>();
-        ArrayList<String> githubUrls = new ArrayList<>();
-        ArrayList<String> organisations = new ArrayList<>();
-        for (GithubUsers user : allDevelopers) {
-            userNames.add(user.getUserName());
-            profileImages.add(user.getProfileImage());
-            githubUrls.add(user.getProfile());
-            organisations.add(user.getOrganization());
-        }
-        recyclerView.setAdapter(new GithubUsersAdapter(this, userNames,
-                profileImages, githubUrls, organisations));
-    }
-
-
-    @Override
-    public void showError() {
-
+        recyclerView.setAdapter(new GithubUsersAdapter(this, allDevelopers));
     }
 
 
