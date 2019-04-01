@@ -3,7 +3,6 @@ package com.example.androidcodelabapp.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import com.example.androidcodelabapp.model.GithubUsers;
 import com.example.androidcodelabapp.presenter.GithubPresenter;
 
 public class DetailActivity extends AppCompatActivity implements SingleDeveloperView {
-    private GithubPresenter presenter;
     private String githubUserName;
 
     @Override
@@ -22,7 +20,7 @@ public class DetailActivity extends AppCompatActivity implements SingleDeveloper
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         getIncomingIntent();
-        presenter = new GithubPresenter();
+        GithubPresenter presenter = new GithubPresenter();
         presenter.getDeveloperProfile(githubUserName, this
         );
     }
@@ -56,14 +54,5 @@ public class DetailActivity extends AppCompatActivity implements SingleDeveloper
 
     }
 
-    @Override
-    public void showError() {
-        try {
-            throw new InterruptedException("Something went wrong!");
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
-    }
+}
