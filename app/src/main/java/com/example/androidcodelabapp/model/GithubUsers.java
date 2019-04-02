@@ -1,8 +1,22 @@
 package com.example.androidcodelabapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class GithubUsers {
+public class GithubUsers implements Parcelable {
+    public static final Creator<GithubUsers> CREATOR = new Creator<GithubUsers>() {
+        @Override
+        public GithubUsers createFromParcel(Parcel source) {
+            return new GithubUsers(source);
+        }
+
+        @Override
+        public GithubUsers[] newArray(int size) {
+            return new GithubUsers[size];
+        }
+    };
 
     @SerializedName("avatar_url")
     String profileImage;
@@ -15,6 +29,13 @@ public class GithubUsers {
 
     @SerializedName("company")
     String organization;
+
+    protected GithubUsers(Parcel source) {
+        profileImage = source.readString();
+        userName = source.readString();
+        organization = source.readString();
+        profile = source.readString();
+    }
 
 
     public String getProfileImage() {
@@ -31,6 +52,19 @@ public class GithubUsers {
 
     public String getProfile() {
         return profile;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(profileImage);
+        dest.writeString(userName);
+        dest.writeString(organization);
+        dest.writeString(profile);
     }
 
 }
