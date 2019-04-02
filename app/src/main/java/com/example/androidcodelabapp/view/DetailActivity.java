@@ -1,9 +1,11 @@
 package com.example.androidcodelabapp.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,8 @@ import com.example.androidcodelabapp.presenter.GithubPresenter;
 
 public class DetailActivity extends AppCompatActivity implements SingleDeveloperView {
     private String githubUserName;
+    Button share;
+    GithubUsers sharedInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +27,18 @@ public class DetailActivity extends AppCompatActivity implements SingleDeveloper
         GithubPresenter presenter = new GithubPresenter();
         presenter.getDeveloperProfile(githubUserName, this
         );
+        share = findViewById(R.id.sharebutton);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("Checkout this awesome developer @%s, %s.", sharedInfo.getUserName(), sharedInfo.getProfile()));
+                startActivity(Intent.createChooser(shareIntent, String.format("Checkout this awesome developer @%s, %s.:", sharedInfo.getUserName(), sharedInfo.getProfile())));
+            }
+
+        });
     }
 
     private void getIncomingIntent() {
@@ -44,6 +60,7 @@ public class DetailActivity extends AppCompatActivity implements SingleDeveloper
 
     @Override
     public void showDeveloperProfile(GithubUsers profile) {
+        sharedInfo = profile;
         View view = findViewById(R.id.detail_activity);
         TextView githubUrl = view.findViewById(R.id.githuburl);
         TextView organization = view.findViewById(R.id.org);
