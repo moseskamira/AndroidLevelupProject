@@ -16,6 +16,7 @@ apply plugin: 'jacoco-android'
 
 apply plugin: 'jacoco'
 apply from: "$project.rootDir/config/quality.gradle"
+apply from: "$project.rootDir/config/install-git-hooks.gradle"
 
 jacoco{
     toolVersion = "0.8.2"
