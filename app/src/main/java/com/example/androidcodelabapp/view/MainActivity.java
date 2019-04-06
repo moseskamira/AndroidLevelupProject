@@ -1,5 +1,6 @@
 package com.example.androidcodelabapp.view;
 
+import android.content.res.Configuration;
 import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,16 +20,17 @@ import com.example.androidcodelabapp.model.GithubUsersResponse;
 import com.example.androidcodelabapp.presenter.GithubPresenter;
 import com.example.androidcodelabapp.util.CheckNetworkConnection;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AllDevelopersView {
+public class MainActivity extends AppCompatActivity implements AllDevelopersView, SwipeRefreshLayout.OnRefreshListener{
+    public static final String LIST_STATE_KEY = "recycler_list_state";
+    public static final String GITHUB_USERS = "retrieved_github_users";
     private RecyclerView recyclerView;
     private GithubPresenter presenter;
     private SwipeRefreshLayout devSwipe;
     private ProgressBar progressBar;
-    public static final String LIST_STATE_KEY = "recycler_state";
-    List<GithubUsers> allDevelopers;
-    Parcelable listState;
+    ArrayList<GithubUsers> allDevelopers;
+    private Parcelable listState = null;
     RecyclerView.LayoutManager layoutManager;
 
 
@@ -37,10 +39,22 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        runProgressBar();
-        initRecyclerView();
-        loadGithubUsers();
+        recyclerView = findViewById(R.id.recyclerview);
         devSwipe = findViewById(R.id.swipe);
+        progressBar = findViewById(R.id.progbar);
+        recyclerView.setHasFixedSize(true);
+
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(this, 3);
+        } else {
+            layoutManager = new GridLayoutManager(this, 4);
+        }
+        recyclerView.setLayoutManager(layoutManager);
+        presenter = new GithubPresenter();
+        loadGithubUsers();
+
+        devSwipe.setOnRefreshListener(this);
+
         devSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -50,20 +64,16 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
 
     }
 
-    private void initRecyclerView() {
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        recyclerView.setHasFixedSize(true);
+    public void loadGithubUsers() {
+        if (new CheckNetworkConnection(this).isConnected()) {
+
+            presenter.getDevelopers(this);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinator), "No Internet Connection, Make Sure You Hava Mobile Data or Wifi", Snackbar.LENGTH_INDEFINITE);
+            snackbar.show();
+        }
     }
-
-    public void showDeveloperDetails(GithubUsers profileInfo) {
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("gitUserName", profileInfo.getUserName());
-        intent.putExtra("profileImage", profileInfo.getProfileImage());
-        startActivity(intent);
-
-    }
-
     @Override
     public void showDevelopers(GithubUsersResponse response) {
 
@@ -73,26 +83,50 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
         progressBar.setVisibility(View.GONE);
     }
 
-    void loadGithubUsers() {
-        if (new CheckNetworkConnection(this).isConnected()) {
+    protected void onSaveInstanceState(Bundle state){
+        super.onSaveInstanceState(state);
+        state.putParcelableArrayList(GITHUB_USERS, allDevelopers);
+        listState = layoutManager.onSaveInstanceState();
+        state.putParcelable(LIST_STATE_KEY, listState);
 
-            presenter = new GithubPresenter();
-            presenter.getDevelopers(this);
-        } else {
+    }
+    protected void onRestoreInstanceState(Bundle state){
+        super.onRestoreInstanceState(state);
+        if(state != null){
+            allDevelopers = state.getParcelableArrayList(GITHUB_USERS);
+            listState = state.getParcelable(LIST_STATE_KEY);
+
+        }
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(listState != null){
+            recyclerView.setAdapter(new GithubUsersAdapter(this, allDevelopers));
+            layoutManager.onRestoreInstanceState(listState);
             progressBar.setVisibility(View.GONE);
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinator), "No Internet Connection, Make Sure You Hava Mobile Data or Wifi", Snackbar.LENGTH_INDEFINITE);
-            snackbar.show();
+
+
         }
     }
 
-    public void runProgressBar() {
-        progressBar = (ProgressBar) findViewById(R.id.progbar);
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                loadGithubUsers();
-            }
-        };
-        thread.start();
+
+    public void showDeveloperDetails(GithubUsers profileInfo) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("gitUserName", profileInfo.getUserName());
+        intent.putExtra("profileImage", profileInfo.getProfileImage());
+        startActivity(intent);
+
     }
+    @Override
+    public void onRefresh(){
+        refreshDevs();
+    }
+    public void refreshDevs(){
+        loadGithubUsers();
+        devSwipe.setRefreshing(false);
+    }
+
+
+
 }

@@ -35,7 +35,8 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+
         TextView gitUserName = holder.itemView.findViewById(R.id.gitusername);
         gitUserName.setText(allDevelopers.get(position).getUserName());
         Glide.with(mContext).asBitmap().load(allDevelopers.get(position).getProfileImage()).into(holder.profileImage);
