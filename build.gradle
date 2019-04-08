@@ -25,3 +25,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext {
+
+    testRunnerVersion = '1.0.2'
+    testRulesVersion = '1.0.2'
+    espressoCoreVersion = '3.0.2'
+
+}

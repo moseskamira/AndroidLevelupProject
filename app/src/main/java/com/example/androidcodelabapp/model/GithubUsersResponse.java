@@ -3,17 +3,16 @@ package com.example.androidcodelabapp.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GithubUsersResponse {
     @SerializedName("items")
-    List<GithubUsers> githubUsers;
+    ArrayList<GithubUsers> githubUsers;
 
     public GithubUsersResponse(){
-        githubUsers = new ArrayList<GithubUsers>();
+        githubUsers = new ArrayList<>();
 
     }
-    public List<GithubUsers> getGithubUsers(){
+    public ArrayList<GithubUsers> getGithubUsers(){
         return githubUsers;
     }
 }
