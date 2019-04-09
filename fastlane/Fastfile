@@ -1,0 +1,27 @@
+
+default_platform(:android)
+
+platform :android do
+    before_all do
+        ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    end
+
+    desc "Generate APK, Send Slack Message"
+    lane :slackbuild do |options|
+        gradle(
+            task: "clean assemble",
+            flavor: options[:flavor],
+            build_type: "Release"
+            )
+            slack(message: "Build Successful")
+            upload_to_slack()
+     end
+
+     desc "Upload Latest APK To Slack"
+     private_lane :upload_to_slack do |options|
+          file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+          file_name = file_path.gsub(/\/.*\//,"")
+          sh "echo Uploading " + file_name + " to #converge-codelab-QA Slack"
+          sh "curl https://slack.com/api/files.upload -F token=\"xoxp-424384161762-604977969574-589708186850-523d8b5b677043b72a4d3cc5041a4a58\" -F channels=\"converge-codelab-QA\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+      end
+end
