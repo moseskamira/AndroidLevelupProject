@@ -15,6 +15,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
@@ -30,14 +31,14 @@ public class DetailActivityTest {
     public ActivityTestRule<DetailActivity> detailActivityTestRule = new ActivityTestRule<>(
             DetailActivity.class);
     @Rule
-    public IntentsTestRule<DetailActivity> intentRule = new IntentsTestRule<>(DetailActivity.class,
+    public IntentsTestRule<DetailActivity> intentData = new IntentsTestRule<>(DetailActivity.class,
             true, false);
 
     @Before
     public void startActivity() throws InterruptedException {
         Intent intent = new Intent();
         intent.putExtra(MainActivity.GITHUB_USERS, "Oclemy");
-        intentRule.launchActivity(intent);
+        intentData.launchActivity(intent);
         Thread.sleep(4000);
 
     }
@@ -70,6 +71,10 @@ public class DetailActivityTest {
     @Test
     public void detailActivityDisplaysShareButton() {
         onView(withId(R.id.sharebutton)).check(matches(isDisplayed()));
+    }
+    @Test
+    public void checkShareButtonIsClickable() {
+        onView(withId(R.id.sharebutton)).check(matches(isClickable()));
     }
 
 

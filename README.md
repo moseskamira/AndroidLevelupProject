@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/moseskamira/AndroidLevelupProject.svg?style=svg)](https://circleci.com/gh/moseskamira/AndroidLevelupProject)
+[![Build Status](https://travis-ci.org/moseskamira/AndroidLevelupProject.svg?branch=develop)](https://travis-ci.org/moseskamira/AndroidLevelupProject)
 [![Maintainability](https://api.codeclimate.com/v1/badges/79307512581ddef1b841/maintainability)](https://codeclimate.com/github/moseskamira/AndroidLevelupProject/maintainability)
 [![codecov](https://codecov.io/gh/moseskamira/AndroidLevelupProject/branch/develop/graph/badge.svg)](https://codecov.io/gh/moseskamira/AndroidLevelupProject)
 
