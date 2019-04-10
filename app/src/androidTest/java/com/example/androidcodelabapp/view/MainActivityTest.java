@@ -55,15 +55,6 @@ public class MainActivityTest {
 
     }
 
-
-    @Test
-    public void checkPresenceOfSomeDeveloper() {
-        onView(withText("moseskamira")).check(doesNotExist());
-
-    }
-
-
-
     @Test
     public void recyclerViewIsConnectedToMainActivity() throws Exception{
         onView(withId(R.id.recyclerview)).check(matches(isDisplayed()));
@@ -96,6 +87,7 @@ public class MainActivityTest {
                         hasDescendant(withText(JavaDeveloperUsername)), click()));
         onView(withId(R.id.gitusername)).check(matches(isDisplayed()));
     }
+
     @After
     public void unregisterIdlingResource() {
         IdlingRegistry.getInstance().unregister(mActivityTestRule.getActivity().getCountingIdlingResource());
