@@ -30,6 +30,13 @@ public class GithubUsers implements Parcelable {
     @SerializedName("company")
     String organization;
 
+    public GithubUsers(String image, String username, String profile, String organization) {
+        this.profileImage = image;
+        this.userName = username;
+        this.profile = profile;
+        this.organization = organization;
+    }
+
     protected GithubUsers(Parcel source) {
         profileImage = source.readString();
         userName = source.readString();

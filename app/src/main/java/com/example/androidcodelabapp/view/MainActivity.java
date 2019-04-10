@@ -2,7 +2,9 @@ package com.example.androidcodelabapp.view;
 
 import android.content.res.Configuration;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.Snackbar;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +34,7 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
     ArrayList<GithubUsers> allDevelopers;
     private Parcelable listState = null;
     RecyclerView.LayoutManager layoutManager;
-
-
+    CountingIdlingResource countingIdlingResource = new CountingIdlingResource("Main");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
 
     public void loadGithubUsers() {
         if (new CheckNetworkConnection(this).isConnected()) {
-
+            countingIdlingResource.increment();
             presenter.getDevelopers(this);
+
         } else {
             progressBar.setVisibility(View.GONE);
             Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinator), "No Internet Connection, Make Sure You Hava Mobile Data or Wifi", Snackbar.LENGTH_INDEFINITE);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
         recyclerView.setAdapter(new GithubUsersAdapter(this, allDevelopers));
         devSwipe.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
+        countingIdlingResource.decrement();
     }
 
     protected void onSaveInstanceState(Bundle state){
@@ -127,6 +130,10 @@ public class MainActivity extends AppCompatActivity implements AllDevelopersView
         devSwipe.setRefreshing(false);
     }
 
+    @VisibleForTesting
+    public CountingIdlingResource getCountingIdlingResource(){
+        return countingIdlingResource;
+    }
 
 
 }
