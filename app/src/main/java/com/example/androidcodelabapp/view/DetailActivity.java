@@ -64,9 +64,14 @@ public class DetailActivity extends AppCompatActivity implements SingleDeveloper
         View view = findViewById(R.id.detail_activity);
         TextView githubUrl = view.findViewById(R.id.githuburl);
         TextView organization = view.findViewById(R.id.org);
+        if(profile != null){
+            githubUrl.setText(profile.getProfile());
+            organization.setText(profile.getOrganization());
 
-        githubUrl.setText(profile.getProfile());
-        organization.setText(profile.getOrganization());
+
+        }
+
+
 
 
     }
