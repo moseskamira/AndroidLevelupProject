@@ -14,19 +14,14 @@ public class GithubUsersTest {
         final String profile = "https://github.com/TheDancerDodes";
         final String organization = "Andela";
 
-        newGithubUser.userName = username;
-        newGithubUser.profileImage = image;
-        newGithubUser.profile = profile;
-        newGithubUser.organization = organization;
-
-
+        newGithubUser.setUserName(username);
+        newGithubUser.setProfileImage(image);
+        newGithubUser.setProfile(profile);
+        newGithubUser.setOrganization(organization);
 
         assertEquals(username, newGithubUser.getUserName());
         assertEquals(image, newGithubUser.getProfileImage());
         assertEquals(profile, newGithubUser.getProfile());
         assertEquals(organization, newGithubUser.getOrganization());
-
-
     }
-
 }

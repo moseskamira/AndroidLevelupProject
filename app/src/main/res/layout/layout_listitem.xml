@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image"
+        android:id="@+id/image1"
         android:layout_width="80dp"
         android:src="@drawable/mosesand"
         android:layout_height="80dp"/>
