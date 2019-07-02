@@ -10,7 +10,6 @@ public class GithubUsersResponse {
 
     public GithubUsersResponse(){
         githubUsers = new ArrayList<>();
-
     }
     public ArrayList<GithubUsers> getGithubUsers(){
         return githubUsers;
