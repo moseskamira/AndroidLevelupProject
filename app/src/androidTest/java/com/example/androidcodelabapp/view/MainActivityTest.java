@@ -56,13 +56,14 @@ public class MainActivityTest {
     }
 
     @Test
-    public void recyclerViewIsConnectedToMainActivity() throws Exception{
+    public void recyclerViewIsConnectedToMainActivity() {
         onView(withId(R.id.recyclerview)).check(matches(isDisplayed()));
     }
     @Test
-    public void onUserClichDisplaysDetailView()throws Exception{
+    public void onUserClichDisplaysDetailView() {
         registerIdlingResource();
-        onView(withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(JavaDeveloperUsername)), click()));
+        onView(withId(R.id.recyclerview)).perform(RecyclerViewActions
+                .actionOnItem(hasDescendant(withText(JavaDeveloperUsername)), click()));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void backButtonOnClick() throws Exception {
+    public void backButtonOnClick() {
         registerIdlingResource();
 
         onView(withId(R.id.recyclerview))
