@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        presenter = GithubPresenter()
         recyclerView = findViewById(R.id.recyclerview)
         devSwipe = findViewById(R.id.swipe)
         progressBar = findViewById(R.id.progbar)
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
             GridLayoutManager(this, 4)
         }
         recyclerView.layoutManager = layoutManager
-        presenter = GithubPresenter()
+
         loadGithubUsers()
         devSwipe.setOnRefreshListener(this)
         devSwipe.setOnRefreshListener { loadGithubUsers() }
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
 
     override fun showDevelopers(response: GithubUsersResponse) {
 
-        allDevelopers = response.githubUsers
+        allDevelopers = response.getGithubUsers()
         recyclerView.adapter = GithubUsersAdapter(this, allDevelopers)
         devSwipe.isRefreshing = false
         progressBar.visibility = View.GONE
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
     override fun onRestoreInstanceState(state: Bundle?) {
         super.onRestoreInstanceState(state)
         if (state != null) {
-            allDevelopers = state.getParcelableArrayList(GITHUB_USERS)
+            allDevelopers = state.getParcelableArrayList(GITHUB_USERS)!!
             listState = state.getParcelable(LIST_STATE_KEY)
         }
     }
