@@ -14,17 +14,16 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class GithubPresenter {
-   var apiInterface: GithubAPI = GithubService().getRetrofit()
+   private var apiInterface: GithubAPI = GithubService().getRetrofit()
 
     companion object {
         internal const val TAG = "Something Went Wrong!"
     }
 
     fun getDevelopers(allDevelopersView: AllDevelopersView) {
-        apiInterface.allDevelopers.enqueue(object : Callback<GithubUsersResponse> {
+        apiInterface.getAllDevelopers().enqueue(object : Callback<GithubUsersResponse> {
             override fun onResponse(call: Call<GithubUsersResponse>, response: Response<GithubUsersResponse>) {
                 allDevelopersView.showDevelopers(response.body()!!)
-
             }
 
             override fun onFailure(call: Call<GithubUsersResponse>, t: Throwable) {

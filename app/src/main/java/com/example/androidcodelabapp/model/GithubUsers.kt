@@ -25,17 +25,9 @@ class GithubUsers : Parcelable {
         this.organization = organization
     }
 
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<GithubUsers> = object : Parcelable.Creator<GithubUsers> {
-            override fun createFromParcel(source: Parcel): GithubUsers {
-                return GithubUsers(source)
-            }
-
-            override fun newArray(size: Int): Array<GithubUsers?> {
-                return arrayOfNulls(size)
-            }
-        }
+    companion object CREATOR : Parcelable.Creator<GithubUsers> {
+        override fun createFromParcel(source: Parcel): GithubUsers = GithubUsers(source)
+        override fun newArray(size: Int): Array<GithubUsers?> = arrayOfNulls(size)
     }
 
     constructor(source: Parcel) {
