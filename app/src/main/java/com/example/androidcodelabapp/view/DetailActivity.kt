@@ -11,17 +11,21 @@ import com.example.androidcodelabapp.presenter.GithubPresenter
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), SingleDeveloperView {
-    private lateinit var githubUserName: String
     private lateinit var share: Button
     private lateinit var sharedInfo: GithubUsers
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.androidcodelabapp.R.layout.activity_detail)
-        getIncomingIntent()
         val presenter = GithubPresenter()
-        presenter.getDeveloperProfile(githubUserName, this
-        )
+
+        if (intent.hasExtra("gitUserName") && intent.hasExtra("profileImage")) {
+            val githubUserName = intent.getStringExtra("gitUserName")
+            val profileImage = intent.getStringExtra("profileImage")
+            setProfile(githubUserName, profileImage)
+
+            presenter.getDeveloperProfile(githubUserName, this)
+        }
         share = findViewById(com.example.androidcodelabapp.R.id.sharebutton)
         share.setOnClickListener {
             val shareIntent = Intent()
@@ -36,14 +40,6 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperView {
         }
     }
 
-    private fun getIncomingIntent() {
-        if (intent.hasExtra("gitUserName") && intent.hasExtra("profileImage")) {
-            githubUserName = intent.getStringExtra("gitUserName")
-            val profileImage = intent.getStringExtra("profileImage")
-            setProfile(githubUserName, profileImage)
-        }
-    }
-
     private fun setProfile(userName: String?, profileImage: String) {
         val name = gitusername
         name.text = userName
@@ -55,9 +51,7 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperView {
         sharedInfo = profile
         val githubUrl = githuburl
         val organization = org
-        if (profile != null) {
             githubUrl.text = profile.profile
             organization.text = profile.organization
-        }
     }
 }
