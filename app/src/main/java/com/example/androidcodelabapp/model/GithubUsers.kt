@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 import com.google.gson.annotations.SerializedName
 
-class GithubUsers : Parcelable {
+class GithubUsers( profileImage: String?, userName: String?, profile: String?,
+                   organization: String?) : Parcelable {
     @SerializedName("avatar_url")
     var profileImage: String? = null
 
@@ -18,33 +19,34 @@ class GithubUsers : Parcelable {
     @SerializedName("company")
     var organization: String? = null
 
-    constructor(image: String, username: String, profile: String, organization: String) {
-        this.profileImage = image
-        this.userName = username
+    init {
+        this.profileImage = profileImage
+        this.userName = userName
         this.profile = profile
         this.organization = organization
     }
 
-    companion object CREATOR : Parcelable.Creator<GithubUsers> {
-        override fun createFromParcel(source: Parcel): GithubUsers = GithubUsers(source)
-        override fun newArray(size: Int): Array<GithubUsers?> = arrayOfNulls(size)
-    }
+    constructor(parcel: Parcel) : this(parcel.readString(), parcel.readString(),
+            parcel.readString(), parcel.readString())
 
-    constructor(source: Parcel) {
-        profileImage = source.readString()
-        userName = source.readString()
-        organization = source.readString()
-        profile = source.readString()
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(profileImage)
+        parcel.writeString(userName)
+        parcel.writeString(profile)
+        parcel.writeString(organization)
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(profileImage)
-        dest.writeString(userName)
-        dest.writeString(organization)
-        dest.writeString(profile)
+    companion object CREATOR : Parcelable.Creator<GithubUsers> {
+        override fun createFromParcel(parcel: Parcel): GithubUsers {
+            return GithubUsers(parcel)
+        }
+
+        override fun newArray(size: Int): Array<GithubUsers?> {
+            return arrayOfNulls(size)
+        }
     }
 }
