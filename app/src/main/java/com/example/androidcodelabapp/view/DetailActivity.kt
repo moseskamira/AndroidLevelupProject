@@ -19,7 +19,7 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperView {
         setContentView(com.example.androidcodelabapp.R.layout.activity_detail)
         val presenter = GithubPresenter()
 
-        if (intent.hasExtra("gitUserName") && intent.hasExtra("profileImage")) {
+        if (intent.hasExtra("gitUserName") != null && intent.hasExtra("profileImage") != null) {
             val githubUserName = intent.getStringExtra("gitUserName")
             val profileImage = intent.getStringExtra("profileImage")
             setProfile(githubUserName, profileImage)
