@@ -1,28 +1,23 @@
 package com.example.androidcodelabapp.view
 
+
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.VisibleForTesting
-import android.support.design.widget.Snackbar
-import android.support.test.espresso.idling.CountingIdlingResource
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
-
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.adapter.GithubUsersAdapter
 import com.example.androidcodelabapp.model.GithubUsers
 import com.example.androidcodelabapp.model.GithubUsersResponse
 import com.example.androidcodelabapp.presenter.GithubPresenter
 import com.example.androidcodelabapp.util.CheckNetworkConnection
-
-import kotlin.collections.ArrayList
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var recyclerView: RecyclerView
@@ -32,9 +27,6 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
     private lateinit var allDevelopers: ArrayList<GithubUsers>
     private var listState: Parcelable? = null
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    @get:VisibleForTesting
-    var countingIdlingResource = CountingIdlingResource("Main")
-        internal set
 
     companion object {
         const val LIST_STATE_KEY = "recycler_list_state"
@@ -63,7 +55,6 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
 
     private fun loadGithubUsers() {
         if (CheckNetworkConnection(this).isConnected) {
-            countingIdlingResource.increment()
             presenter.getDevelopers(this)
         } else {
             progressBar.visibility = View.GONE
@@ -80,7 +71,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
         recyclerView.adapter = GithubUsersAdapter(this, allDevelopers)
         devSwipe.isRefreshing = false
         progressBar.visibility = View.GONE
-        countingIdlingResource.decrement()
+
     }
 
     override fun onSaveInstanceState(state: Bundle) {
@@ -89,14 +80,15 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
         listState = layoutManager.onSaveInstanceState()
         state.putParcelable(LIST_STATE_KEY, listState)
     }
-
-    override fun onRestoreInstanceState(state: Bundle?) {
+    override fun onRestoreInstanceState(state: Bundle) {
         super.onRestoreInstanceState(state)
-        if (state != null) {
-            allDevelopers = state.getParcelableArrayList(GITHUB_USERS)!!
-            listState = state.getParcelable(LIST_STATE_KEY)
-        }
+        super.onRestoreInstanceState(state)
+        allDevelopers = state.getParcelableArrayList(GITHUB_USERS)!!
+        listState = state.getParcelable(LIST_STATE_KEY)
+
     }
+
+
 
     override fun onResume() {
         super.onResume()

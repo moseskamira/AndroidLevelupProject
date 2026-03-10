@@ -1,47 +1,42 @@
 package com.example.androidcodelabapp.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.androidcodelabapp.databinding.LayoutListitemBinding
 import com.example.androidcodelabapp.model.GithubUsers
 import com.example.androidcodelabapp.view.MainActivity
 
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_detail.view.gitusername
-import kotlinx.android.synthetic.main.layout_listitem.view.*
+class GithubUsersAdapter(
+    private val mContext: Context,
+    private val allDevelopers: List<GithubUsers>
+) : RecyclerView.Adapter<GithubUsersAdapter.ViewHolder>() {
 
-class GithubUsersAdapter(private val mContext: Context, private val allDevelopers: List<GithubUsers>)
-    : RecyclerView.Adapter<GithubUsersAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(com.example.androidcodelabapp
-                .R.layout.layout_listitem, parent, false)
-        return ViewHolder(view)
+        val binding = LayoutListitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val user = allDevelopers[position]
 
-        val gitUserName = holder.itemView.gitusername
-        gitUserName.text = allDevelopers[position].userName
-        Glide.with(mContext).asBitmap().load(allDevelopers[position].profileImage)
-                .into(holder.profileImage)
-        holder.parentLayout.setOnClickListener {
-            val mainActivity = mContext as MainActivity
-            mainActivity.showDeveloperDetails(allDevelopers[position])
+        // Set username
+        holder.binding.gitusername.text = user.userName
+
+        // Load profile image
+        Glide.with(mContext)
+            .load(user.profileImage)
+            .into(holder.binding.image1)
+
+        // Handle click
+        holder.binding.parentLayout.setOnClickListener {
+            (mContext as MainActivity).showDeveloperDetails(user)
         }
     }
 
-    override fun getItemCount(): Int {
-        return allDevelopers.size
-    }
+    override fun getItemCount(): Int = allDevelopers.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var profileImage: CircleImageView = itemView.image1
-        var parentLayout: LinearLayout = itemView.parent_layout
-
-    }
+    inner class ViewHolder(val binding: LayoutListitemBinding) : RecyclerView.ViewHolder(binding.root)
 }

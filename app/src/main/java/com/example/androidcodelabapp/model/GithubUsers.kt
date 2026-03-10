@@ -1,8 +1,6 @@
 package com.example.androidcodelabapp.model
-
 import android.os.Parcel
 import android.os.Parcelable
-
 import com.google.gson.annotations.SerializedName
 
 class GithubUsers( profileImage: String?, userName: String?, profile: String?,
