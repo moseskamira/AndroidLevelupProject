@@ -2,56 +2,54 @@ package com.example.androidcodelabapp.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.androidcodelabapp.databinding.ActivityDetailBinding
 import com.example.androidcodelabapp.model.GithubUsers
 import com.example.androidcodelabapp.presenter.GithubPresenter
-import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), SingleDeveloperView {
-    private lateinit var share: Button
+
+    private lateinit var binding: ActivityDetailBinding
     private lateinit var sharedInfo: GithubUsers
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.androidcodelabapp.R.layout.activity_detail)
+
+        // Initialize ViewBinding
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val presenter = GithubPresenter()
 
-        if (intent.hasExtra("gitUserName") != null && intent.hasExtra("profileImage") != null) {
-            val githubUserName = intent.getStringExtra("gitUserName")
-            val profileImage = intent.getStringExtra("profileImage")
-            setProfile(githubUserName, profileImage)
+        val githubUserName = intent.getStringExtra("gitUserName")
+        val profileImage = intent.getStringExtra("profileImage")
 
+        if (!githubUserName.isNullOrEmpty() && !profileImage.isNullOrEmpty()) {
+            setProfile(githubUserName, profileImage)
             presenter.getDeveloperProfile(githubUserName, this)
         }
-        share = findViewById(com.example.androidcodelabapp.R.id.sharebutton)
-        share.setOnClickListener {
-            val shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, String
-                    .format("Checkout this awesome developer @%s, %s.",
-                            sharedInfo.userName, sharedInfo.profile))
-            startActivity(Intent.createChooser(shareIntent, String
-                    .format("Checkout this awesome developer @%s, %s.:",
-                            sharedInfo.userName, sharedInfo.profile)))
+
+        binding.sharebutton.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Checkout this awesome developer @${sharedInfo.userName}, ${sharedInfo.profile}."
+                )
+            }
+            startActivity(Intent.createChooser(shareIntent, "Share Developer Info"))
         }
     }
 
-    private fun setProfile(userName: String?, profileImage: String) {
-        val name = gitusername
-        name.text = userName
-        val image = image
-        Glide.with(this).asBitmap().load(profileImage).into(image)
+    private fun setProfile(userName: String, profileImage: String) {
+        binding.gitusername.text = userName
+        Glide.with(this).asBitmap().load(profileImage).into(binding.image)
     }
 
     override fun showDeveloperProfile(profile: GithubUsers) {
         sharedInfo = profile
-        val githubUrl = githuburl
-        val organization = org
-            githubUrl.text = profile.profile
-            organization.text = profile.organization
+        binding.githuburl.text = profile.profile
+        binding.org.text = profile.organization
     }
 }
