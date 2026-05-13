@@ -35,8 +35,8 @@ public class MainActivityTest {
     private CountingIdlingResource countingIdlingResource;
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<UsersActivity> mActivityTestRule = new ActivityTestRule<>(
+            UsersActivity.class);
 
     public void registerIdlingResource(){
         countingIdlingResource = mActivityTestRule.getActivity().getCountingIdlingResource();

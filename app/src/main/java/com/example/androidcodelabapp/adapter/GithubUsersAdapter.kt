@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.LayoutListitemBinding
-import com.example.androidcodelabapp.model.GithubUsers
-import com.example.androidcodelabapp.view.MainActivity
+import com.example.androidcodelabapp.model.GithubUser
+import com.example.androidcodelabapp.view.UsersActivity
 
 class GithubUsersAdapter(
     private val mContext: Context,
-    private val allDevelopers: List<GithubUsers>
+    private val allDevelopers: List<GithubUser>
 ) : RecyclerView.Adapter<GithubUsersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,7 +32,7 @@ class GithubUsersAdapter(
 
         // Handle click
         holder.binding.parentLayout.setOnClickListener {
-            (mContext as MainActivity).showDeveloperDetails(user)
+            (mContext as UsersActivity).showDeveloperDetails(user)
         }
     }
 

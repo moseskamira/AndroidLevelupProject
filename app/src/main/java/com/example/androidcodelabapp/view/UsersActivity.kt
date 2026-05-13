@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.adapter.GithubUsersAdapter
-import com.example.androidcodelabapp.model.GithubUsers
+import com.example.androidcodelabapp.model.GithubUser
 import com.example.androidcodelabapp.model.GithubUsersResponse
 import com.example.androidcodelabapp.presenter.GithubPresenter
 import com.example.androidcodelabapp.util.CheckNetworkConnection
 import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.OnRefreshListener {
+class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var presenter: GithubPresenter
     private lateinit var devSwipe: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
-    private lateinit var allDevelopers: ArrayList<GithubUsers>
+    private lateinit var allDevelopers: ArrayList<GithubUser>
     private var listState: Parcelable? = null
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_users)
         presenter = GithubPresenter()
         recyclerView = findViewById(R.id.recyclerview)
         devSwipe = findViewById(R.id.swipe)
@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
     }
 
     override fun showDevelopers(response: GithubUsersResponse) {
-
         allDevelopers = response.getGithubUsers()
         recyclerView.adapter = GithubUsersAdapter(this, allDevelopers)
         devSwipe.isRefreshing = false
@@ -99,7 +98,7 @@ class MainActivity : AppCompatActivity(), AllDevelopersView, SwipeRefreshLayout.
         }
     }
 
-    fun showDeveloperDetails(profileInfo: GithubUsers) {
+    fun showDeveloperDetails(profileInfo: GithubUser) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("gitUserName", profileInfo.userName)
         intent.putExtra("profileImage", profileInfo.profileImage)

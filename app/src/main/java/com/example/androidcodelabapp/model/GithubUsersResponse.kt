@@ -6,7 +6,7 @@ import java.util.ArrayList
 
 class GithubUsersResponse {
     @SerializedName("items")
-    private var githubUsers: ArrayList<GithubUsers> = ArrayList()
+    private var githubUsers: ArrayList<GithubUser> = ArrayList()
 
-    fun getGithubUsers(): ArrayList<GithubUsers> = githubUsers
+    fun getGithubUsers(): ArrayList<GithubUser> = githubUsers
 }

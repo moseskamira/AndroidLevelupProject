@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity"
+        <activity android:name=".view.UsersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:exported="true">
             <intent-filter>
@@ -24,7 +24,7 @@
         <activity
             android:name=".view.DetailActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:parentActivityName=".view.MainActivity" />
+            android:parentActivityName=".view.UsersActivity" />
     </application>
 
 </manifest>

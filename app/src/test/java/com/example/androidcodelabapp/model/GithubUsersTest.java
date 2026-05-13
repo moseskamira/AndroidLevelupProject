@@ -8,7 +8,7 @@ public class GithubUsersTest {
 
     @Test
     public void createGitHubUser(){
-        GithubUsers newGithubUser = new GithubUsers("image", "username", "profile", "organzation");
+        GithubUser newGithubUser = new GithubUser("image", "username", "profile", "organzation");
         final String username = "TheDancerCodes";
         final String image = "https://avatars2.githubusercontent.com/u/6739804?v=4";
         final String profile = "https://github.com/TheDancerDodes";
