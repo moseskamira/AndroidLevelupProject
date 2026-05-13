@@ -3,8 +3,8 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-class GithubUsers( profileImage: String?, userName: String?, profile: String?,
-                   organization: String?) : Parcelable {
+class GithubUser(profileImage: String?, userName: String?, profile: String?,
+                 organization: String?) : Parcelable {
     @SerializedName("avatar_url")
     var profileImage: String? = null
 
@@ -38,12 +38,12 @@ class GithubUsers( profileImage: String?, userName: String?, profile: String?,
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<GithubUsers> {
-        override fun createFromParcel(parcel: Parcel): GithubUsers {
-            return GithubUsers(parcel)
+    companion object CREATOR : Parcelable.Creator<GithubUser> {
+        override fun createFromParcel(parcel: Parcel): GithubUser {
+            return GithubUser(parcel)
         }
 
-        override fun newArray(size: Int): Array<GithubUsers?> {
+        override fun newArray(size: Int): Array<GithubUser?> {
             return arrayOfNulls(size)
         }
     }
