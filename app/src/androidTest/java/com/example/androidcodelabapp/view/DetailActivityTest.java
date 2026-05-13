@@ -37,7 +37,7 @@ public class DetailActivityTest {
     @Before
     public void startActivity() throws InterruptedException {
         Intent intent = new Intent();
-        intent.putExtra(MainActivity.GITHUB_USERS, "Oclemy");
+        intent.putExtra(UsersActivity.GITHUB_USERS, "Oclemy");
         intentData.launchActivity(intent);
         Thread.sleep(4000);
 

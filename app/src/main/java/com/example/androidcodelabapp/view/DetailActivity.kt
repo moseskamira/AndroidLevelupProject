@@ -5,13 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
-import com.example.androidcodelabapp.model.GithubUsers
+import com.example.androidcodelabapp.model.GithubUser
 import com.example.androidcodelabapp.presenter.GithubPresenter
 
-class DetailActivity : AppCompatActivity(), SingleDeveloperView {
+class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var sharedInfo: GithubUsers
+    private lateinit var sharedInfo: GithubUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperView {
         Glide.with(this).asBitmap().load(profileImage).into(binding.image)
     }
 
-    override fun showDeveloperProfile(profile: GithubUsers) {
+    override fun showDeveloperProfile(profile: GithubUser) {
         sharedInfo = profile
         binding.githuburl.text = profile.profile
         binding.org.text = profile.organization
