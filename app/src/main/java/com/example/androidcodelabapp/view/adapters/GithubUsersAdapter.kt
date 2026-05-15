@@ -15,28 +15,23 @@ class GithubUsersAdapter(
 ) : RecyclerView.Adapter<GithubUsersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = LayoutListitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            LayoutListitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = allDevelopers[position]
-
-        // Set username
         holder.binding.gitusername.text = user.userName
-
-        // Load profile image
         Glide.with(mContext)
             .load(user.profileImage)
             .into(holder.binding.image1)
-
-        // Handle click
         holder.binding.parentLayout.setOnClickListener {
             (mContext as UsersActivity).loadDetailActivity(user)
         }
     }
 
     override fun getItemCount(): Int = allDevelopers.size
-
-    inner class ViewHolder(val binding: LayoutListitemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: LayoutListitemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

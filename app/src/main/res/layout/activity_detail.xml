@@ -1,136 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/detail_activity1">
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="30dp"
-    android:weightSum="100"
-    android:id="@+id/detail_activity">
+    android:orientation="vertical">
 
-
-    <RelativeLayout
+    <!-- TOOLBAR -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="25">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        app:navigationIconTint="@android:color/black"
+        app:titleTextColor="@android:color/black" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
-
-    <LinearLayout
+    <!-- CONTENT -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="60"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/gitusername"
+        <LinearLayout
+            android:id="@+id/detail_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
-            android:textAlignment="center"
-            android:paddingBottom="6dp"
-            android:textColor="#000"
-            android:textSize="23sp" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" />
 
-        <View
-            android:id="@+id/divider6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/gitusername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/githolder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/git_profile_url"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="18sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/listDivider" />
 
-        <TextView
-            android:id="@+id/githuburl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:autoLink="all"
-            android:textColor="#000"
-            android:paddingBottom="10dp"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/githolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/git_profile_url"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-        <View
-            android:id="@+id/divider7"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/githuburl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autoLink="web"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/orgholder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/organization"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="18sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/listDivider" />
 
-        <TextView
-            android:id="@+id/org"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:textColor="#000"
-            android:paddingBottom="6dp"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-        <View
-            android:id="@+id/divider8"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/orgholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/organization"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/org"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10">
+            <Button
+                android:id="@+id/sharebutton"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:text="@string/share"
+                android:textColor="@android:color/black" />
 
-        <Button
-            android:id="@+id/sharebutton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="20dp"
-            android:text="@string/share"
-            android:textColor="@android:color/background_light" />
-    </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
-</ScrollView>

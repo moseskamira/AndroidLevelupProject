@@ -3,12 +3,14 @@ package com.example.androidcodelabapp.view.activities
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,6 +21,7 @@ import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
 import com.example.androidcodelabapp.presenter.DevelopersPresenter
 import com.example.androidcodelabapp.util.CheckNetworkConnection
 import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 
 class UsersActivity : AppCompatActivity(), AllDevelopersContract,
@@ -39,6 +42,10 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_users)
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = true
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.title = "Java Developers"
         presenter = DevelopersPresenter()
         recyclerView = findViewById(R.id.recyclerview)
         devSwipe = findViewById(R.id.swipe)
