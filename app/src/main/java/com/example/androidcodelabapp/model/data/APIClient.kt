@@ -1,7 +1,7 @@
-package com.example.androidcodelabapp.service
+package com.example.androidcodelabapp.model.data
 
-import com.example.androidcodelabapp.model.GithubUser
-import com.example.androidcodelabapp.model.GithubUsersResponse
+import com.example.androidcodelabapp.model.domain.entities.GithubUser
+import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
 
 import retrofit2.Call
 import retrofit2.http.GET

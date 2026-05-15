@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.view
+package com.example.androidcodelabapp.view.activities
 
 
 import android.content.Intent
@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
-import com.example.androidcodelabapp.adapter.GithubUsersAdapter
-import com.example.androidcodelabapp.model.GithubUser
-import com.example.androidcodelabapp.model.GithubUsersResponse
+import com.example.androidcodelabapp.view.adapters.GithubUsersAdapter
+import com.example.androidcodelabapp.model.domain.entities.GithubUser
+import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
 import com.example.androidcodelabapp.presenter.GithubPresenter
 import com.example.androidcodelabapp.util.CheckNetworkConnection
+import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
 import com.google.android.material.snackbar.Snackbar
 
 class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLayout.OnRefreshListener {
@@ -66,7 +67,7 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLa
     }
 
     override fun showDevelopers(response: GithubUsersResponse) {
-        allDevelopers = response.getGithubUsers()
+        allDevelopers = response.githubUsers
         recyclerView.adapter = GithubUsersAdapter(this, allDevelopers)
         devSwipe.isRefreshing = false
         progressBar.visibility = View.GONE

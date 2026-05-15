@@ -2,19 +2,19 @@ package com.example.androidcodelabapp.presenter
 
 import android.util.Log
 
-import com.example.androidcodelabapp.model.GithubUser
-import com.example.androidcodelabapp.model.GithubUsersResponse
-import com.example.androidcodelabapp.service.APIService
-import com.example.androidcodelabapp.service.APIClient
-import com.example.androidcodelabapp.view.AllDevelopersContract
-import com.example.androidcodelabapp.view.SingleDeveloperContract
+import com.example.androidcodelabapp.model.domain.entities.GithubUser
+import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
+import com.example.androidcodelabapp.model.data.APIService
+import com.example.androidcodelabapp.model.data.APIClient
+import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
+import com.example.androidcodelabapp.view.contracts.SingleDeveloperContract
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class GithubPresenter {
-   private var apiInterface: APIClient = APIService().getRetrofit()
+   private var apiInterface: APIClient = APIService.apiClient
 
     companion object {
         internal const val TAG = "Something Went Wrong!"
