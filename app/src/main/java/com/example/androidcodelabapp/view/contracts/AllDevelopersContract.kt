@@ -4,4 +4,5 @@ import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse;
 
 interface AllDevelopersContract {
     fun showDevelopers(response: GithubUsersResponse)
+    fun showError(s: String)
 }
