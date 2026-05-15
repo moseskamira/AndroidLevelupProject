@@ -4,4 +4,5 @@ import com.example.androidcodelabapp.model.domain.entities.GithubUser
 
 interface SingleDeveloperContract {
     fun showDeveloperProfile(profile: GithubUser)
+    fun showError(s: String)
 }

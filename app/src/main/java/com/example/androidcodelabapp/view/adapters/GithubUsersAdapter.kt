@@ -32,7 +32,7 @@ class GithubUsersAdapter(
 
         // Handle click
         holder.binding.parentLayout.setOnClickListener {
-            (mContext as UsersActivity).showDeveloperDetails(user)
+            (mContext as UsersActivity).loadDetailActivity(user)
         }
     }
 
