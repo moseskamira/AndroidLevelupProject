@@ -3,6 +3,7 @@ package com.example.androidcodelabapp.view.activities
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -15,14 +16,15 @@ import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.view.adapters.GithubUsersAdapter
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
 import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
-import com.example.androidcodelabapp.presenter.GithubPresenter
+import com.example.androidcodelabapp.presenter.DevelopersPresenter
 import com.example.androidcodelabapp.util.CheckNetworkConnection
 import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
 import com.google.android.material.snackbar.Snackbar
 
-class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLayout.OnRefreshListener {
+class UsersActivity : AppCompatActivity(), AllDevelopersContract,
+    SwipeRefreshLayout.OnRefreshListener {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var presenter: GithubPresenter
+    private lateinit var presenter: DevelopersPresenter
     private lateinit var devSwipe: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var allDevelopers: ArrayList<GithubUser>
@@ -37,16 +39,17 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_users)
-        presenter = GithubPresenter()
+        presenter = DevelopersPresenter()
         recyclerView = findViewById(R.id.recyclerview)
         devSwipe = findViewById(R.id.swipe)
         progressBar = findViewById(R.id.progbar)
         recyclerView.setHasFixedSize(true)
-        layoutManager = if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            GridLayoutManager(this, 3)
-        } else {
-            GridLayoutManager(this, 4)
-        }
+        layoutManager =
+            if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                GridLayoutManager(this, 3)
+            } else {
+                GridLayoutManager(this, 4)
+            }
         recyclerView.layoutManager = layoutManager
 
         loadGithubUsers()
@@ -59,9 +62,11 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLa
             presenter.getDevelopers(this)
         } else {
             progressBar.visibility = View.GONE
-            val snackbar = Snackbar.make(findViewById(R.id.cordinator),
-                    "No Internet Connection, Make Sure You Hava Mobile Data or Wifi",
-                    Snackbar.LENGTH_INDEFINITE)
+            val snackbar = Snackbar.make(
+                findViewById(R.id.cordinator),
+                "No Internet Connection, Make Sure You Hava Mobile Data or Wifi",
+                Snackbar.LENGTH_INDEFINITE
+            )
             snackbar.show()
         }
     }
@@ -74,20 +79,33 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract, SwipeRefreshLa
 
     }
 
-    override fun onSaveInstanceState(state: Bundle) {
-        super.onSaveInstanceState(state)
-        state.putParcelableArrayList(GITHUB_USERS, allDevelopers)
-        listState = layoutManager.onSaveInstanceState()
-        state.putParcelable(LIST_STATE_KEY, listState)
+    override fun showError(s: String) {
+        TODO("Not yet implemented")
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(GITHUB_USERS, allDevelopers)
+        listState = layoutManager.onSaveInstanceState()
+        outState.putParcelable(LIST_STATE_KEY, listState)
+    }
+
     override fun onRestoreInstanceState(state: Bundle) {
         super.onRestoreInstanceState(state)
-        super.onRestoreInstanceState(state)
-        allDevelopers = state.getParcelableArrayList(GITHUB_USERS)!!
-        listState = state.getParcelable(LIST_STATE_KEY)
+        allDevelopers = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            state.getParcelableArrayList(GITHUB_USERS, GithubUser::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            state.getParcelableArrayList(GITHUB_USERS)
+        } ?: arrayListOf()
 
+        listState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            state.getParcelable(LIST_STATE_KEY, Parcelable::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            state.getParcelable(LIST_STATE_KEY)
+        }
     }
-
 
 
     override fun onResume() {

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
-import com.example.androidcodelabapp.presenter.GithubPresenter
+import com.example.androidcodelabapp.presenter.DeveloperProfilePresenter
 import com.example.androidcodelabapp.view.contracts.SingleDeveloperContract
 
 class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
@@ -21,7 +21,7 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val presenter = GithubPresenter()
+        val presenter = DeveloperProfilePresenter()
 
         val githubUserName = intent.getStringExtra("gitUserName")
         val profileImage = intent.getStringExtra("profileImage")
@@ -52,5 +52,9 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
         sharedInfo = profile
         binding.githuburl.text = profile.profile
         binding.org.text = profile.organization
+    }
+
+    override fun showError(s: String) {
+        TODO("Not yet implemented")
     }
 }
