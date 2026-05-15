@@ -1,19 +1,16 @@
 package com.example.androidcodelabapp.presenter
 
-import com.example.androidcodelabapp.model.data.APIClient
-import com.example.androidcodelabapp.model.data.APIService
+import com.example.androidcodelabapp.model.data.repositories.DeveloperRepository
 import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
 import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DevelopersPresenter {
-
-    private var apiClient: APIClient = APIService.apiClient
+class DevelopersPresenter(private val repository: DeveloperRepository) {
 
     fun getDevelopers(view: AllDevelopersContract) {
-        apiClient.getAllDevelopers().enqueue(object : Callback<GithubUsersResponse> {
+        repository.getDevelopers().enqueue(object : Callback<GithubUsersResponse> {
             override fun onResponse(
                 call: Call<GithubUsersResponse>,
                 response: Response<GithubUsersResponse>

@@ -3,7 +3,6 @@ package com.example.androidcodelabapp.view.activities
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -15,11 +14,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
-import com.example.androidcodelabapp.view.adapters.GithubUsersAdapter
+import com.example.androidcodelabapp.databinding.ActivityUsersBinding
+import com.example.androidcodelabapp.model.data.repositories.DeveloperRepository
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
 import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
 import com.example.androidcodelabapp.presenter.DevelopersPresenter
 import com.example.androidcodelabapp.util.CheckNetworkConnection
+import com.example.androidcodelabapp.view.adapters.GithubUsersAdapter
 import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
@@ -33,6 +34,7 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
     private lateinit var allDevelopers: ArrayList<GithubUser>
     private var listState: Parcelable? = null
     private lateinit var layoutManager: RecyclerView.LayoutManager
+    private  lateinit var binding : ActivityUsersBinding
 
     companion object {
         const val LIST_STATE_KEY = "recycler_list_state"
@@ -41,12 +43,13 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_users)
+        binding = ActivityUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         WindowCompat.getInsetsController(window, window.decorView)
             .isAppearanceLightStatusBars = true
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         toolbar.title = "Java Developers"
-        presenter = DevelopersPresenter()
+        presenter = DevelopersPresenter(DeveloperRepository())
         recyclerView = findViewById(R.id.recyclerview)
         devSwipe = findViewById(R.id.swipe)
         progressBar = findViewById(R.id.progbar)

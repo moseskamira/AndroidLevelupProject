@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
+import com.example.androidcodelabapp.model.data.repositories.DeveloperRepository
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
 import com.example.androidcodelabapp.presenter.DeveloperProfilePresenter
 import com.example.androidcodelabapp.view.contracts.SingleDeveloperContract
@@ -37,7 +38,7 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        val presenter = DeveloperProfilePresenter()
+        val presenter = DeveloperProfilePresenter(DeveloperRepository())
 
         val githubUserName = intent.getStringExtra("gitUserName")
         val profileImage = intent.getStringExtra("profileImage")
