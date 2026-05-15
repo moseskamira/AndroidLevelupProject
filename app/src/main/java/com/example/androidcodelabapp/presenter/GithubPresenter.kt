@@ -2,12 +2,12 @@ package com.example.androidcodelabapp.presenter
 
 import android.util.Log
 
-import com.example.androidcodelabapp.model.GithubUser
-import com.example.androidcodelabapp.model.GithubUsersResponse
-import com.example.androidcodelabapp.service.APIService
-import com.example.androidcodelabapp.service.APIClient
-import com.example.androidcodelabapp.view.AllDevelopersContract
-import com.example.androidcodelabapp.view.SingleDeveloperContract
+import com.example.androidcodelabapp.model.domain.entities.GithubUser
+import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
+import com.example.androidcodelabapp.model.data.APIService
+import com.example.androidcodelabapp.model.data.APIClient
+import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
+import com.example.androidcodelabapp.view.contracts.SingleDeveloperContract
 
 import retrofit2.Call
 import retrofit2.Callback

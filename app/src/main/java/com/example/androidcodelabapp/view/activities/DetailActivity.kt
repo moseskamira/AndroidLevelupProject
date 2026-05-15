@@ -1,12 +1,13 @@
-package com.example.androidcodelabapp.view
+package com.example.androidcodelabapp.view.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
-import com.example.androidcodelabapp.model.GithubUser
+import com.example.androidcodelabapp.model.domain.entities.GithubUser
 import com.example.androidcodelabapp.presenter.GithubPresenter
+import com.example.androidcodelabapp.view.contracts.SingleDeveloperContract
 
 class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
 

@@ -3,6 +3,8 @@ package com.example.androidcodelabapp.model;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import com.example.androidcodelabapp.model.domain.entities.GithubUser;
+
 
 public class GithubUsersTest {
 

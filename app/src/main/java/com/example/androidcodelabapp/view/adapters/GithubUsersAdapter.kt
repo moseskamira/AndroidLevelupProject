@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.adapter
+package com.example.androidcodelabapp.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.LayoutListitemBinding
-import com.example.androidcodelabapp.model.GithubUser
-import com.example.androidcodelabapp.view.UsersActivity
+import com.example.androidcodelabapp.model.domain.entities.GithubUser
+import com.example.androidcodelabapp.view.activities.UsersActivity
 
 class GithubUsersAdapter(
     private val mContext: Context,

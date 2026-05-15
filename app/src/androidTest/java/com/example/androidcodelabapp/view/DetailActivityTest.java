@@ -2,6 +2,8 @@ package com.example.androidcodelabapp.view;
 
 
 import com.example.androidcodelabapp.R;
+import com.example.androidcodelabapp.view.activities.DetailActivity;
+import com.example.androidcodelabapp.view.activities.UsersActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
