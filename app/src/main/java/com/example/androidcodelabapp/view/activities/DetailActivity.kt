@@ -1,8 +1,10 @@
 package com.example.androidcodelabapp.view.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
@@ -16,10 +18,24 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = true
 
-        // Initialize ViewBinding
+        // ViewBinding
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // TOOLBAR SETUP
+//        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.apply {
+            title = "Developer Profile"
+            setDisplayHomeAsUpEnabled(true)
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         val presenter = DeveloperProfilePresenter()
 
@@ -32,29 +48,44 @@ class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
         }
 
         binding.sharebutton.setOnClickListener {
-            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(
-                    Intent.EXTRA_TEXT,
-                    "Checkout this awesome developer @${sharedInfo.userName}, ${sharedInfo.profile}."
+
+            if (::sharedInfo.isInitialized) {
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "Checkout this awesome developer @${sharedInfo.userName}, ${sharedInfo.profile}"
+                    )
+                }
+
+                startActivity(
+                    Intent.createChooser(
+                        shareIntent,
+                        "Share Developer Info"
+                    )
                 )
             }
-            startActivity(Intent.createChooser(shareIntent, "Share Developer Info"))
         }
     }
 
     private fun setProfile(userName: String, profileImage: String) {
         binding.gitusername.text = userName
-        Glide.with(this).asBitmap().load(profileImage).into(binding.image)
+
+        Glide.with(this)
+            .load(profileImage)
+            .into(binding.image)
     }
 
     override fun showDeveloperProfile(profile: GithubUser) {
         sharedInfo = profile
+
         binding.githuburl.text = profile.profile
         binding.org.text = profile.organization
     }
 
     override fun showError(s: String) {
-        TODO("Not yet implemented")
+        binding.org.text = s
     }
 }
