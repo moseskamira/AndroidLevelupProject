@@ -1,4 +1,4 @@
-# 🚀 Android LevelUp Project
+# 🚀 Android LevelUp Project (MVP)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android-Kotlin-3DDC84?style=for-the-badge&logo=android" />
