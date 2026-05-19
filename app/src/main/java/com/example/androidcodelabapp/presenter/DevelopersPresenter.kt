@@ -10,26 +10,18 @@ import retrofit2.Response
 class DevelopersPresenter(private val repository: DeveloperRepositoryImpl) {
 
     fun getDevelopers(view: AllDevelopersContract) {
-        repository.getDevelopers().enqueue(object : Callback<GithubUsersResponse> {
-            override fun onResponse(
-                call: Call<GithubUsersResponse>,
-                response: Response<GithubUsersResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body != null) {
-                        view.showDevelopers(body)
-                    } else {
-                        view.showError("Empty response from server")
-                    }
-                } else {
-                    view.showError("Request failed: ${response.code()}")
-                }
+        val response = repository.getDevelopers()
+        if (response.success) {
+            val data = response.data
+            if (data != null) {
+                view.showDevelopers(data)
+            }
+        } else {
+            val error = response.error
+            if (error != null) {
+                view.showError(error)
             }
 
-            override fun onFailure(call: Call<GithubUsersResponse>, t: Throwable) {
-                view.showError("Request failed: ${t.message}")
-            }
-        })
+        }
     }
 }
