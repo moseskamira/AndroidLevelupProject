@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.model.data
+package com.example.androidcodelabapp.model.data.network.retrofit
 
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
 import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse

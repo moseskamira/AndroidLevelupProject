@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.model.data
+package com.example.androidcodelabapp.model.data.network.retrofit
 
 import com.example.androidcodelabapp.util.Constants
 import retrofit2.Retrofit

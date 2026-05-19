@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.databinding.ActivityUsersBinding
-import com.example.androidcodelabapp.model.data.repositories.DeveloperRepository
+import com.example.androidcodelabapp.model.data.repositories.DeveloperRepositoryImpl
 import com.example.androidcodelabapp.model.domain.entities.GithubUser
 import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
 import com.example.androidcodelabapp.presenter.DevelopersPresenter
@@ -49,7 +49,7 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
             .isAppearanceLightStatusBars = true
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         toolbar.title = "Java Developers"
-        presenter = DevelopersPresenter(DeveloperRepository())
+        presenter = DevelopersPresenter(DeveloperRepositoryImpl())
         recyclerView = findViewById(R.id.recyclerview)
         devSwipe = findViewById(R.id.swipe)
         progressBar = findViewById(R.id.progbar)
