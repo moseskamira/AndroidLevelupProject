@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.view.activities
+package com.example.androidcodelabapp.presentation.developers
 
 
 import android.content.Intent
@@ -15,17 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.databinding.ActivityUsersBinding
-import com.example.androidcodelabapp.model.data.repositories.DeveloperRepositoryImpl
-import com.example.androidcodelabapp.model.domain.entities.GithubUser
-import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
-import com.example.androidcodelabapp.presenter.DevelopersPresenter
+import com.example.androidcodelabapp.data.repositories.DeveloperRepositoryImpl
+import com.example.androidcodelabapp.data.network.dto.GithubUser
+import com.example.androidcodelabapp.data.network.dto.GithubUsersResponse
 import com.example.androidcodelabapp.util.CheckNetworkConnection
-import com.example.androidcodelabapp.view.adapters.GithubUsersAdapter
-import com.example.androidcodelabapp.view.contracts.AllDevelopersContract
+import com.example.androidcodelabapp.presentation.developer_profile.DeveloperProfileActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 
-class UsersActivity : AppCompatActivity(), AllDevelopersContract,
+class DevelopersActivity : AppCompatActivity(), DevelopersContract,
     SwipeRefreshLayout.OnRefreshListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var presenter: DevelopersPresenter
@@ -69,6 +67,7 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
     private fun loadGithubUsers() {
         if (CheckNetworkConnection(this).isConnected) {
             presenter.getDevelopers(this)
+
         } else {
             progressBar.visibility = View.GONE
             val snackbar = Snackbar.make(
@@ -82,14 +81,19 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
 
     override fun showDevelopers(response: GithubUsersResponse) {
         allDevelopers = response.githubUsers
-        recyclerView.adapter = GithubUsersAdapter(this, allDevelopers)
+        recyclerView.adapter = DevelopersAdapter(this, allDevelopers)
         devSwipe.isRefreshing = false
         progressBar.visibility = View.GONE
 
     }
 
     override fun showError(s: String) {
-        TODO("Not yet implemented")
+        progressBar.visibility = View.GONE
+        Snackbar.make(
+            findViewById(android.R.id.content),
+            s,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -120,14 +124,14 @@ class UsersActivity : AppCompatActivity(), AllDevelopersContract,
     override fun onResume() {
         super.onResume()
         if (listState != null) {
-            recyclerView.adapter = GithubUsersAdapter(this, allDevelopers)
+            recyclerView.adapter = DevelopersAdapter(this, allDevelopers)
             layoutManager.onRestoreInstanceState(listState)
             progressBar.visibility = View.GONE
         }
     }
 
     fun loadDetailActivity(profileInfo: GithubUser) {
-        val intent = Intent(this, DetailActivity::class.java)
+        val intent = Intent(this, DeveloperProfileActivity::class.java)
         intent.putExtra("gitUserName", profileInfo.userName)
         intent.putExtra("profileImage", profileInfo.profileImage)
         startActivity(intent)

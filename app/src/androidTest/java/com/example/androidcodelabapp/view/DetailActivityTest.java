@@ -2,8 +2,8 @@ package com.example.androidcodelabapp.view;
 
 
 import com.example.androidcodelabapp.R;
-import com.example.androidcodelabapp.view.activities.DetailActivity;
-import com.example.androidcodelabapp.view.activities.UsersActivity;
+import com.example.androidcodelabapp.presentation.developer_profile.DeveloperProfileActivity;
+import com.example.androidcodelabapp.presentation.developers.DevelopersActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,16 +30,16 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 public class DetailActivityTest {
 
     @Rule
-    public ActivityTestRule<DetailActivity> detailActivityTestRule = new ActivityTestRule<>(
-            DetailActivity.class);
+    public ActivityTestRule<DeveloperProfileActivity> detailActivityTestRule = new ActivityTestRule<>(
+            DeveloperProfileActivity.class);
     @Rule
-    public IntentsTestRule<DetailActivity> intentData = new IntentsTestRule<>(DetailActivity.class,
+    public IntentsTestRule<DeveloperProfileActivity> intentData = new IntentsTestRule<>(DeveloperProfileActivity.class,
             true, false);
 
     @Before
     public void startActivity() throws InterruptedException {
         Intent intent = new Intent();
-        intent.putExtra(UsersActivity.GITHUB_USERS, "Oclemy");
+        intent.putExtra(DevelopersActivity.GITHUB_USERS, "Oclemy");
         intentData.launchActivity(intent);
         Thread.sleep(4000);
 

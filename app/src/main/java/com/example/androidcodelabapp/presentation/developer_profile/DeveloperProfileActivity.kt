@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.view.activities
+package com.example.androidcodelabapp.presentation.developer_profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
-import com.example.androidcodelabapp.model.data.repositories.DeveloperRepositoryImpl
-import com.example.androidcodelabapp.model.domain.entities.GithubUser
-import com.example.androidcodelabapp.presenter.DeveloperProfilePresenter
-import com.example.androidcodelabapp.view.contracts.SingleDeveloperContract
+import com.example.androidcodelabapp.data.repositories.DeveloperRepositoryImpl
+import com.example.androidcodelabapp.data.network.dto.GithubUser
 
-class DetailActivity : AppCompatActivity(), SingleDeveloperContract {
+class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var sharedInfo: GithubUser

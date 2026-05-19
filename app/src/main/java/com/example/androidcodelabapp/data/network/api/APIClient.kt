@@ -1,14 +1,14 @@
-package com.example.androidcodelabapp.model.data.network.retrofit
+package com.example.androidcodelabapp.data.network.api
 
-import com.example.androidcodelabapp.model.domain.entities.GithubUser
-import com.example.androidcodelabapp.model.domain.entities.GithubUsersResponse
+import com.example.androidcodelabapp.data.network.dto.GithubUser
+import com.example.androidcodelabapp.data.network.dto.GithubUsersResponse
 
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface APIClient {
-    @GET("search/users?q=type:User+location:Nairobi+language:JAVA")
+    @GET("search/users?q=type:User+location:Kampala+language:JAVA")
     fun getAllDevelopers(): Call<GithubUsersResponse>
 
     @GET("users/{githubUserName}")

@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.model.domain.entities
+package com.example.androidcodelabapp.data.network.dto
 
 import com.google.gson.annotations.SerializedName
 
