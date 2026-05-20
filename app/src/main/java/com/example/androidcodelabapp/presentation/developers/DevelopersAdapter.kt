@@ -1,4 +1,4 @@
-package com.example.androidcodelabapp.view.adapters
+package com.example.androidcodelabapp.presentation.developers
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.LayoutListitemBinding
-import com.example.androidcodelabapp.model.domain.entities.GithubUser
-import com.example.androidcodelabapp.view.activities.UsersActivity
+import com.example.androidcodelabapp.data.network.dto.GithubUser
 
-class GithubUsersAdapter(
+class DevelopersAdapter(
     private val mContext: Context,
     private val allDevelopers: List<GithubUser>
-) : RecyclerView.Adapter<GithubUsersAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<DevelopersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -27,7 +26,7 @@ class GithubUsersAdapter(
             .load(user.profileImage)
             .into(holder.binding.image1)
         holder.binding.parentLayout.setOnClickListener {
-            (mContext as UsersActivity).loadDetailActivity(user)
+            (mContext as DevelopersActivity).loadDetailActivity(user)
         }
     }
 

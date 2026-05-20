@@ -2,7 +2,7 @@ package com.example.androidcodelabapp.view;
 
 
 import com.example.androidcodelabapp.R;
-import com.example.androidcodelabapp.view.activities.UsersActivity;
+import com.example.androidcodelabapp.presentation.developers.DevelopersActivity;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -36,8 +36,8 @@ public class MainActivityTest {
     private CountingIdlingResource countingIdlingResource;
 
     @Rule
-    public ActivityTestRule<UsersActivity> mActivityTestRule = new ActivityTestRule<>(
-            UsersActivity.class);
+    public ActivityTestRule<DevelopersActivity> mActivityTestRule = new ActivityTestRule<>(
+            DevelopersActivity.class);
 
     public void registerIdlingResource(){
         countingIdlingResource = mActivityTestRule.getActivity().getCountingIdlingResource();

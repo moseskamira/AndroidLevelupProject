@@ -3,7 +3,7 @@ package com.example.androidcodelabapp.model;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import com.example.androidcodelabapp.model.domain.entities.GithubUser;
+import com.example.androidcodelabapp.data.network.dto.GithubUser;
 
 
 public class GithubUsersTest {

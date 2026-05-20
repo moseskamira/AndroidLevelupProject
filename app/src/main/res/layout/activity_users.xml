@@ -6,7 +6,7 @@
     android:id="@+id/cordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.UsersActivity">
+    tools:context=".presentation.developers.DevelopersActivity">
 
     <!-- APP BAR -->
     <com.google.android.material.appbar.AppBarLayout

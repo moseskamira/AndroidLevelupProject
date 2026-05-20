@@ -1,4 +1,4 @@
-# 🚀 Android LevelUp Project
+# 🚀 Android LevelUp Project (MVP)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android-Kotlin-3DDC84?style=for-the-badge&logo=android" />
@@ -59,7 +59,63 @@ Built with a focus on **MVP architecture**, clean code, and scalability.
 
 ---
 
-### 🔁 Data Flow
+### 🔁 Project Structure
+
+```text
+
+│
+├── data
+│   ├── network
+│   │   ├── api
+│   │   │   ├── APIClient
+│   │   │   └── APIService
+│   │   │
+│   │   ├── responses
+│   │   │   └── NetworkResponse
+│   │   │
+│   │   └── dto
+│   │       ├── GithubUserDto
+│   │       └── GithubUsersResponseDto
+│   │
+│   └── repositories
+│       └── DeveloperRepositoryImpl
+│
+├── domain
+│   ├── models
+│   │   ├── GithubUser
+│   │   └── GithubUsersResponse
+│   │
+│   └── repositories
+│       └── DeveloperRepository
+│
+├── presentation
+│   ├── developers
+│   │   ├── DevelopersActivity
+│   │   ├── DevelopersContract
+│   │   ├── DevelopersPresenter
+│   │   └── DevelopersAdapter
+│   │
+│   ├── developer_profile
+│   │   ├── DeveloperProfileActivity
+│   │   ├── DeveloperProfileContract
+│   │   └── DeveloperProfilePresenter
+│   │
+│   └── common
+│       ├── BasePresenter
+│       ├── BaseView
+│       └── UIState
+│
+├── di
+│   └── AppModule
+│
+├── utils
+│   ├── Constants
+│   ├── Extensions
+│   ├── NetworkUtils
+│   └── Resource
+│
+└── MainApplication
+```
 
 
 
