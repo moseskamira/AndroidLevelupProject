@@ -15,9 +15,11 @@
 
 ## 📱 Overview
 
-Android LevelUp Project is a native Android application that demonstrates real-world Android development using the **GitHub API**.
+Android LevelUp Project is a native Android application that demonstrates real-world Android
+development using the **GitHub API**.
 
 It allows users to:
+
 - 👨‍💻 Browse developers in Nairobi
 - 🔍 View detailed developer profiles
 - 📤 Share developer profiles via Android intents
@@ -59,7 +61,7 @@ Built with a focus on **MVP architecture**, clean code, and scalability.
 
 ---
 
-### 🔁 Project Structure
+## 🔁 Project Structure
 
 ```text
 
@@ -117,18 +119,19 @@ Built with a focus on **MVP architecture**, clean code, and scalability.
 └── MainApplication
 ```
 
-
-
 ### Linear Display of List of All Developers In Nairobi
+
 ![List developers](/wireframes/linear.gif)
 
 ### Grid Display of List of All Developers In Nairobi
+
 ![List developers](/wireframes/grid.png)
 
-
 ### Developer Profile Details
+
 ![List developers](/wireframes/profile2.png)
 
 ### Launched Share Intent of Developer Profile
+
 ![List developers](/wireframes/shared.png)
 

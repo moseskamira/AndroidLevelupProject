@@ -1,10 +1,12 @@
 package com.example.androidcodelabapp.data.repositories
 
+import com.example.androidcodelabapp.data.mappers.toDomain
 import com.example.androidcodelabapp.data.network.responses.NetworkResponse
 import com.example.androidcodelabapp.data.network.api.APIClient
 import com.example.androidcodelabapp.data.network.api.APIService
 import com.example.androidcodelabapp.data.network.dto.GithubUserDto
 import com.example.androidcodelabapp.data.network.dto.GithubUsersResponseDto
+import com.example.androidcodelabapp.domain.models.GitHubUserResponse
 import com.example.androidcodelabapp.domain.repositories.DeveloperRepository
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +17,7 @@ class DeveloperRepositoryImpl : DeveloperRepository {
     private val apiClient: APIClient = APIService.apiClient
 
     override fun getDevelopers(
-        onResult: (NetworkResponse<GithubUsersResponseDto>) -> Unit
+        onResult: (NetworkResponse<GitHubUserResponse>) -> Unit
     ) {
         try {
             apiClient.getAllDevelopers()
@@ -25,9 +27,11 @@ class DeveloperRepositoryImpl : DeveloperRepository {
                         response: Response<GithubUsersResponseDto>
                     ) {
                         if (response.isSuccessful) {
+                            val dtoResponse = response.body()
+                            val domainResponse = dtoResponse?.toDomain()
                             onResult(
                                 NetworkResponse(
-                                    data = response.body(),
+                                    data = domainResponse,
                                     success = true
                                 )
                             )
