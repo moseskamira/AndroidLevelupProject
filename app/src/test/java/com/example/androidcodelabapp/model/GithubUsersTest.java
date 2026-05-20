@@ -3,14 +3,14 @@ package com.example.androidcodelabapp.model;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import com.example.androidcodelabapp.data.network.dto.GithubUser;
+import com.example.androidcodelabapp.data.network.dto.GithubUserDto;
 
 
 public class GithubUsersTest {
 
     @Test
     public void createGitHubUser(){
-        GithubUser newGithubUser = new GithubUser("image", "username", "profile", "organzation");
+        GithubUserDto newGithubUser = new GithubUserDto("image", "username", "profile", "organzation");
         final String username = "TheDancerCodes";
         final String image = "https://avatars2.githubusercontent.com/u/6739804?v=4";
         final String profile = "https://github.com/TheDancerDodes";

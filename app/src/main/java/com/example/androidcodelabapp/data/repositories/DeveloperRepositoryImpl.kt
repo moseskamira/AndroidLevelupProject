@@ -3,8 +3,8 @@ package com.example.androidcodelabapp.data.repositories
 import com.example.androidcodelabapp.data.network.responses.NetworkResponse
 import com.example.androidcodelabapp.data.network.api.APIClient
 import com.example.androidcodelabapp.data.network.api.APIService
-import com.example.androidcodelabapp.data.network.dto.GithubUser
-import com.example.androidcodelabapp.data.network.dto.GithubUsersResponse
+import com.example.androidcodelabapp.data.network.dto.GithubUserDto
+import com.example.androidcodelabapp.data.network.dto.GithubUsersResponseDto
 import com.example.androidcodelabapp.domain.repositories.DeveloperRepository
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,14 +15,14 @@ class DeveloperRepositoryImpl : DeveloperRepository {
     private val apiClient: APIClient = APIService.apiClient
 
     override fun getDevelopers(
-        onResult: (NetworkResponse<GithubUsersResponse>) -> Unit
+        onResult: (NetworkResponse<GithubUsersResponseDto>) -> Unit
     ) {
         try {
             apiClient.getAllDevelopers()
-                .enqueue(object : Callback<GithubUsersResponse> {
+                .enqueue(object : Callback<GithubUsersResponseDto> {
                     override fun onResponse(
-                        call: Call<GithubUsersResponse>,
-                        response: Response<GithubUsersResponse>
+                        call: Call<GithubUsersResponseDto>,
+                        response: Response<GithubUsersResponseDto>
                     ) {
                         if (response.isSuccessful) {
                             onResult(
@@ -42,7 +42,7 @@ class DeveloperRepositoryImpl : DeveloperRepository {
                         }
                     }
                     override fun onFailure(
-                        call: Call<GithubUsersResponse>,
+                        call: Call<GithubUsersResponseDto>,
                         t: Throwable
                     ) {
                         onResult(
@@ -66,11 +66,11 @@ class DeveloperRepositoryImpl : DeveloperRepository {
 
     override fun getDeveloperProfile(
         handle: String,
-        onResult: (NetworkResponse<GithubUser>) -> Unit
+        onResult: (NetworkResponse<GithubUserDto>) -> Unit
     ) {
         try {
-           apiClient.getDeveloperProfile(handle).enqueue(object : Callback<GithubUser> {
-                override fun onResponse(call: Call<GithubUser>, response: Response<GithubUser>) {
+           apiClient.getDeveloperProfile(handle).enqueue(object : Callback<GithubUserDto> {
+                override fun onResponse(call: Call<GithubUserDto>, response: Response<GithubUserDto>) {
                     if (response.isSuccessful) {
                         val responseData = response.body()
                         onResult(NetworkResponse(success = true, data = responseData))
@@ -80,7 +80,7 @@ class DeveloperRepositoryImpl : DeveloperRepository {
                     }
                 }
 
-                override fun onFailure(call: Call<GithubUser>, t: Throwable) {
+                override fun onFailure(call: Call<GithubUserDto>, t: Throwable) {
                     val error = t.message
                     onResult(NetworkResponse(error = error, success = false))
                 }

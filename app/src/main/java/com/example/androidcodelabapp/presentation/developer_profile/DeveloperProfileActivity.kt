@@ -7,12 +7,12 @@ import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
 import com.example.androidcodelabapp.data.repositories.DeveloperRepositoryImpl
-import com.example.androidcodelabapp.data.network.dto.GithubUser
+import com.example.androidcodelabapp.data.network.dto.GithubUserDto
 
 class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var sharedInfo: GithubUser
+    private lateinit var sharedInfo: GithubUserDto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +76,7 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
             .into(binding.image)
     }
 
-    override fun showDeveloperProfile(profile: GithubUser) {
+    override fun showDeveloperProfile(profile: GithubUserDto) {
         sharedInfo = profile
 
         binding.githuburl.text = profile.profile

@@ -1,19 +1,19 @@
 package com.example.androidcodelabapp.presentation.developers
 
-import com.example.androidcodelabapp.data.repositories.DeveloperRepositoryImpl
+import com.example.androidcodelabapp.domain.repositories.DeveloperRepository
 
-class DevelopersPresenter(private val repository: DeveloperRepositoryImpl) {
 
+class DevelopersPresenter(private val repository: DeveloperRepository) {
     fun getDevelopers(view: DevelopersContract) {
-        repository.getDevelopers{response->
+        repository.getDevelopers { response ->
             if (response.success) {
                 val data = response.data
-                if (data != null) {
+                data?.let {
                     view.showDevelopers(data)
                 }
             } else {
                 val error = response.error
-                if (error != null) {
+                error?.let {
                     view.showError(error)
                 }
             }
