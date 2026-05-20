@@ -16,8 +16,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.databinding.ActivityUsersBinding
 import com.example.androidcodelabapp.data.repositories.DeveloperRepositoryImpl
-import com.example.androidcodelabapp.data.network.dto.GithubUser
-import com.example.androidcodelabapp.data.network.dto.GithubUsersResponse
+import com.example.androidcodelabapp.data.network.dto.GithubUserDto
+import com.example.androidcodelabapp.data.network.dto.GithubUsersResponseDto
 import com.example.androidcodelabapp.util.CheckNetworkConnection
 import com.example.androidcodelabapp.presentation.developer_profile.DeveloperProfileActivity
 import com.google.android.material.appbar.MaterialToolbar
@@ -29,7 +29,7 @@ class DevelopersActivity : AppCompatActivity(), DevelopersContract,
     private lateinit var presenter: DevelopersPresenter
     private lateinit var devSwipe: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
-    private lateinit var allDevelopers: ArrayList<GithubUser>
+    private lateinit var allDevelopers: ArrayList<GithubUserDto>
     private var listState: Parcelable? = null
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private  lateinit var binding : ActivityUsersBinding
@@ -79,7 +79,7 @@ class DevelopersActivity : AppCompatActivity(), DevelopersContract,
         }
     }
 
-    override fun showDevelopers(response: GithubUsersResponse) {
+    override fun showDevelopers(response: GithubUsersResponseDto) {
         allDevelopers = response.githubUsers
         recyclerView.adapter = DevelopersAdapter(this, allDevelopers)
         devSwipe.isRefreshing = false
@@ -106,7 +106,7 @@ class DevelopersActivity : AppCompatActivity(), DevelopersContract,
     override fun onRestoreInstanceState(state: Bundle) {
         super.onRestoreInstanceState(state)
         allDevelopers = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            state.getParcelableArrayList(GITHUB_USERS, GithubUser::class.java)
+            state.getParcelableArrayList(GITHUB_USERS, GithubUserDto::class.java)
         } else {
             @Suppress("DEPRECATION")
             state.getParcelableArrayList(GITHUB_USERS)
@@ -130,7 +130,7 @@ class DevelopersActivity : AppCompatActivity(), DevelopersContract,
         }
     }
 
-    fun loadDetailActivity(profileInfo: GithubUser) {
+    fun loadDetailActivity(profileInfo: GithubUserDto) {
         val intent = Intent(this, DeveloperProfileActivity::class.java)
         intent.putExtra("gitUserName", profileInfo.userName)
         intent.putExtra("profileImage", profileInfo.profileImage)

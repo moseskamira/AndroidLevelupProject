@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.LayoutListitemBinding
-import com.example.androidcodelabapp.data.network.dto.GithubUser
+import com.example.androidcodelabapp.data.network.dto.GithubUserDto
 
 class DevelopersAdapter(
     private val mContext: Context,
-    private val allDevelopers: List<GithubUser>
+    private val allDevelopers: List<GithubUserDto>
 ) : RecyclerView.Adapter<DevelopersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
