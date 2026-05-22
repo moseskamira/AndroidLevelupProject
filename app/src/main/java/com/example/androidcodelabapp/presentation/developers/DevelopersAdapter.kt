@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidcodelabapp.databinding.LayoutListitemBinding
 import com.example.androidcodelabapp.data.network.dto.GithubUserDto
+import com.example.androidcodelabapp.domain.models.GitHubUser
 
 class DevelopersAdapter(
     private val mContext: Context,
-    private val allDevelopers: List<GithubUserDto>
+    private val allDevelopers: ArrayList<GitHubUser>
 ) : RecyclerView.Adapter<DevelopersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

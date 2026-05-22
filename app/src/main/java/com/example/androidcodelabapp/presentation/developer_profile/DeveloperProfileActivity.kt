@@ -18,46 +18,31 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
         super.onCreate(savedInstanceState)
         WindowCompat.getInsetsController(window, window.decorView)
             .isAppearanceLightStatusBars = true
-
-        // ViewBinding
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // TOOLBAR SETUP
-//        setSupportActionBar(binding.toolbar)
-
         supportActionBar?.apply {
             title = "Developer Profile"
             setDisplayHomeAsUpEnabled(true)
         }
-
         binding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-
         val presenter = DeveloperProfilePresenter(DeveloperRepositoryImpl())
-
         val githubUserName = intent.getStringExtra("gitUserName")
         val profileImage = intent.getStringExtra("profileImage")
-
         if (!githubUserName.isNullOrEmpty() && !profileImage.isNullOrEmpty()) {
             setProfile(githubUserName, profileImage)
             presenter.getDeveloperProfile(githubUserName, this)
         }
-
         binding.sharebutton.setOnClickListener {
-
             if (::sharedInfo.isInitialized) {
-
                 val shareIntent = Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
-
                     putExtra(
                         Intent.EXTRA_TEXT,
                         "Checkout this awesome developer @${sharedInfo.userName}, ${sharedInfo.profile}"
                     )
                 }
-
                 startActivity(
                     Intent.createChooser(
                         shareIntent,
@@ -70,7 +55,6 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
 
     private fun setProfile(userName: String, profileImage: String) {
         binding.gitusername.text = userName
-
         Glide.with(this)
             .load(profileImage)
             .into(binding.image)
@@ -78,7 +62,6 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
 
     override fun showDeveloperProfile(profile: GithubUserDto) {
         sharedInfo = profile
-
         binding.githuburl.text = profile.profile
         binding.org.text = profile.organization
     }

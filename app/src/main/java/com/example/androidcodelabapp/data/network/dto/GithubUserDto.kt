@@ -1,10 +1,8 @@
 package com.example.androidcodelabapp.data.network.dto
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
+
 data class GithubUserDto(
     @SerializedName("avatar_url")
     val profileImage: String? = null,
@@ -17,4 +15,4 @@ data class GithubUserDto(
 
     @SerializedName("company")
     val organization: String? = null
-) : Parcelable
+)
