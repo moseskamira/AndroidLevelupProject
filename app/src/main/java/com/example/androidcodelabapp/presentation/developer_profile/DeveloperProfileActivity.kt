@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
+import com.example.androidcodelabapp.R
 import com.example.androidcodelabapp.databinding.ActivityDetailBinding
 import com.example.androidcodelabapp.data.repositories.DeveloperRepositoryImpl
 import com.example.androidcodelabapp.data.network.dto.GithubUserDto
@@ -20,13 +21,8 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
             .isAppearanceLightStatusBars = true
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.apply {
-            title = "Developer Profile"
-            setDisplayHomeAsUpEnabled(true)
-        }
-        binding.toolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
+       setupToolbar()
+
         val presenter = DeveloperProfilePresenter(DeveloperRepositoryImpl())
         val githubUserName = intent.getStringExtra("gitUserName")
         val profileImage = intent.getStringExtra("profileImage")
@@ -68,5 +64,16 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
 
     override fun showError(s: String) {
         binding.org.text = s
+    }
+
+    private fun setupToolbar() {
+        binding.developerToolbar.apply {
+            setSupportActionBar(this)
+//            applyToolbarInsets()
+        }
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = "Profile"
+        }
     }
 }

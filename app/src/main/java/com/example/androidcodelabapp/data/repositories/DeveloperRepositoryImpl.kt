@@ -3,7 +3,7 @@ package com.example.androidcodelabapp.data.repositories
 import com.example.androidcodelabapp.data.mappers.toDomain
 import com.example.androidcodelabapp.data.network.responses.NetworkResponse
 import com.example.androidcodelabapp.data.network.api.APIClient
-import com.example.androidcodelabapp.data.network.api.APIService
+import com.example.androidcodelabapp.data.network.api.ApiService
 import com.example.androidcodelabapp.data.network.dto.GithubUserDto
 import com.example.androidcodelabapp.data.network.dto.GithubUsersResponseDto
 import com.example.androidcodelabapp.domain.models.GitHubUserResponse
@@ -14,7 +14,7 @@ import retrofit2.Response
 
 class DeveloperRepositoryImpl : DeveloperRepository {
 
-    private val apiClient: APIClient = APIService.apiClient
+    private val apiClient: APIClient = ApiService.apiClient
 
     override fun getDevelopers(
         onResult: (NetworkResponse<GitHubUserResponse>) -> Unit
@@ -45,6 +45,7 @@ class DeveloperRepositoryImpl : DeveloperRepository {
                             )
                         }
                     }
+
                     override fun onFailure(
                         call: Call<GithubUsersResponseDto>,
                         t: Throwable
@@ -73,8 +74,11 @@ class DeveloperRepositoryImpl : DeveloperRepository {
         onResult: (NetworkResponse<GithubUserDto>) -> Unit
     ) {
         try {
-           apiClient.getDeveloperProfile(handle).enqueue(object : Callback<GithubUserDto> {
-                override fun onResponse(call: Call<GithubUserDto>, response: Response<GithubUserDto>) {
+            apiClient.getDeveloperProfile(handle).enqueue(object : Callback<GithubUserDto> {
+                override fun onResponse(
+                    call: Call<GithubUserDto>,
+                    response: Response<GithubUserDto>
+                ) {
                     if (response.isSuccessful) {
                         val responseData = response.body()
                         onResult(NetworkResponse(success = true, data = responseData))
