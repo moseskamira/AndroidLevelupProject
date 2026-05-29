@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace 'com.example.androidcodelabapp'
+    namespace 'com.kamira.githubusers'
     compileSdk 36
     buildFeatures {
         viewBinding true
     }
     defaultConfig {
-        applicationId "com.example.androidcodelabapp"
+        applicationId "com.kamira.githubusers"
         minSdk 28
         targetSdk 36
         versionCode 1
