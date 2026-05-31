@@ -96,8 +96,6 @@ class DeveloperRepositoryImpl : DeveloperRepository {
         } catch (e: Exception) {
             val error = e.message
             onResult(NetworkResponse(error = error, success = false))
-
-
         }
 
     }

@@ -21,7 +21,6 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
        setupToolbar()
-
         val presenter = DeveloperProfilePresenter(DeveloperRepositoryImpl())
         val githubUserName = intent.getStringExtra("gitUserName")
         val profileImage = intent.getStringExtra("profileImage")
@@ -68,13 +67,10 @@ class DeveloperProfileActivity : AppCompatActivity(), SingleDeveloperContract {
     private fun setupToolbar() {
         binding.developerToolbar.apply {
             setSupportActionBar(this)
-//            applyToolbarInsets()
         }
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
-
-
         }
     }
 }
